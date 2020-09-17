@@ -296,10 +296,38 @@ public class Minesweeper
 	 * @param y The y coordinate of each choice the user made.
 	 */
 	
+	
+	public void doBlankDfsSearch(int x, int y)
+	{
+		if (x > -1 && y > -1 &&
+			x <= 10 && y <= 10 &&
+			this.forPlay[x][y] == '-'){
+
+				if (this.keyPlay[x][y] == ' '){
+					this.forPlay[x][y] = this.keyPlay[x][y];
+					doBlankDfsSearch(x-1,y+1);
+					doBlankDfsSearch(x,y+1);
+					doBlankDfsSearch(x+1,y+1);
+					doBlankDfsSearch(x+1,y);
+					doBlankDfsSearch(x+1,y-1);
+					doBlankDfsSearch(x,y-1);
+					doBlankDfsSearch(x-1,y-1);
+				}
+				else if (this.keyPlay[x][y] != 'X'){
+					this.forPlay[x][y] = this.keyPlay[x][y];
+				}
+		}		
+	}
+
+
+	
+
 	public void showByOne(int x, int y)
 	{
 		if (keyPlay[x][y] == ' ')
 		{
+			doBlankDfsSearch(x,y);
+			/*
 			int[][][] reference = doBlanks(x, y);
 			
 			for (int i = 0; i < reference[1][1][1]; i++)
@@ -311,7 +339,7 @@ public class Minesweeper
 					int[][][] reference2 = doBlanks(newX, newY);
 				}
 			}
-						
+			*/		
 			
 			/*	
 			forPlay[x][y] = keyPlay[x][y]; 		// (1) to reveal that blank
